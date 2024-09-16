@@ -8,7 +8,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', Home.as_view(), name='home'),
     path('users/', include('users.urls')),
-    path('telebot/$', include('telebot.urls')),
+    path('telebot/', include('telebot.urls')),
     path("update/", update, name="update")
 ]
 
