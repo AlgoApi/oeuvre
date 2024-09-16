@@ -31,8 +31,9 @@ def tguser(request):
         return HttpResponse("access denied 11")
 
 
-@method_decorator(permission_required(perm='telebot.view_tg_users', raise_exception=True), name='dispatch')
-def load_tgusers(request):
-    # получаем все значения модели
-    data = TgUser.objects.all()
-    return render(request, 'home_telebot.html', {'data': data})
+class View_tgusers(View):
+    @method_decorator(permission_required(perm='telebot.view_tg_users', raise_exception=True), name='dispatch')
+    def get(self, request):
+        # получаем все значения модели
+        data = TgUser.objects.all()
+        return render(request, 'home_telebot.html', {'data': data})
