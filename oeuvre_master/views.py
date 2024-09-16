@@ -22,7 +22,7 @@ def update(request):
         repo = git.Repo("oeuvre")
         origin = repo.remotes.origin
 
-        origin.pull(autostash=True, rebase=True)
+        origin.pull(force=True)
 
         return HttpResponse("Updated code on PythonAnywhere")
     else:
