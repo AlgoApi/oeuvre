@@ -28,7 +28,7 @@ def tguser(request):
         asyncio.run(acreate_person(tg_url, tg_name, name, file_url, description))
         return HttpResponse(200)
     else:
-        load_tgusers(request)
+        return HttpResponse("access denied 11")
 
 
 @method_decorator(permission_required(perm='telebot.view_tg_users', raise_exception=True), name='dispatch')
