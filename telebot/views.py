@@ -29,7 +29,7 @@ def tguser(request):
         asyncio.run(acreate_person(tg_url, tg_name, name, file_url, description))
         return HttpResponse(200)
     else:
-        id_agent = request.GET.get('ID', 0000)
+        id_agent = request.GET.get('ID')
         return HttpResponse(200 if id_agent in agents else 403)
 
 
