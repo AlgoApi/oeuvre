@@ -11,9 +11,9 @@
         </form>
         {% for b in data %}
         <h3>{{ b.name }}</h3>
-        <a>{{ b.tg_url }}</a>
-        <a>{{ b.tg_name }}</a>
-        <a>{{ b.description }}</a>
+        <a>{{ b.tg_url }}</a><br>
+        <a>{{ b.tg_name }}</a><br>
+        <a>{{ b.description }}</a><br>
         <img src="{{ b.photo }}" width="100" height="100">
         {% endfor %}
     {% else %}
