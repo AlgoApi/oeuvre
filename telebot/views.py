@@ -8,6 +8,7 @@ from django.views import View
 from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import permission_required
 
+agents = [9834]
 
 async def acreate_person(tg_url, tg_name, name, photo, description):
     person = await TgUser.objects.acreate(tg_url=tg_url, tg_name=tg_name, name=name, photo=photo,
@@ -28,7 +29,8 @@ def tguser(request):
         asyncio.run(acreate_person(tg_url, tg_name, name, file_url, description))
         return HttpResponse(200)
     else:
-        return HttpResponse("access denied 11")
+        id_agent = request.GET.get('ID', 0000)
+        return HttpResponse(200 if id_agent in agents else 403)
 
 
 class View_tgusers(View):
