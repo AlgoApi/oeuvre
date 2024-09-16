@@ -8,7 +8,7 @@ from django.views import View
 from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import permission_required
 
-agents = [9834]
+agents = [9834, 123]
 
 async def acreate_person(tg_url, tg_name, name, photo, description):
     person = await TgUser.objects.acreate(tg_url=tg_url, tg_name=tg_name, name=name, photo=photo,
@@ -30,7 +30,7 @@ def tguser(request):
         return HttpResponse(200)
     else:
         id_agent = request.GET.get('ID')
-        return HttpResponse(200 if id_agent in agents else 403)
+        return HttpResponse(200 if int(id_agent) in agents else 403)
 
 
 class View_tgusers(View):
