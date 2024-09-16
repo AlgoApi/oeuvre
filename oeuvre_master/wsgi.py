@@ -1,5 +1,5 @@
 """
-WSGI config for project project.
+WSGI config for oeuvre_master oeuvre_master.
 
 It exposes the WSGI callable as a module-level variable named ``application``.
 
@@ -11,6 +11,6 @@ import os
 
 from django.core.wsgi import get_wsgi_application
 
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'project.settings')
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'oeuvre_master.settings')
 
 application = get_wsgi_application()

@@ -114,11 +114,11 @@ ENV/
 env.bak/
 venv.bak/
 
-# Spyder project settings
+# Spyder oeuvre_master settings
 .spyderproject
 .spyproject
 
-# Rope project settings
+# Rope oeuvre_master settings
 .ropeproject
 
 # mkdocs documentation
