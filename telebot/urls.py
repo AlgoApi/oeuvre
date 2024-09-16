@@ -1,6 +1,6 @@
 from django.urls import path
-from telebot.views import Register1
+from telebot.views import tguser
 
 urlpatterns = [
-    path('', Register1.as_view(), name='register1')
+    path('', tguser, name='tgusers')
 ]

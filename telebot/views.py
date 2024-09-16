@@ -15,9 +15,9 @@ async def acreate_person(tg_url, tg_name, name, photo, description):
     print(person.name)
 
 
-class Register1(View):
-    @csrf_exempt
-    def post(self, request):
+@csrf_exempt
+def tguser(request):
+    if request.method == "POST":
         tg_url = request.POST.getlist('tg_url', default="unknown")[0]
         tg_name = request.POST.getlist('tg_name', default="unknown")[0]
         name = request.POST.getlist('name', default="unknown")[0]
@@ -27,9 +27,12 @@ class Register1(View):
         file_url = fs.url(fs.save(file.name, file))
         asyncio.run(acreate_person(tg_url, tg_name, name, file_url, description))
         return HttpResponse(200)
+    else:
+        load_tgusers(request)
 
-    @method_decorator(permission_required(perm='telebot.view_tg_users', raise_exception=True), name='dispatch')
-    def get(self, request):
-        # получаем все значения модели
-        data = TgUser.objects.all()
-        return render(request, 'home_telebot.html', {'data': data})
+
+@method_decorator(permission_required(perm='telebot.view_tg_users', raise_exception=True), name='dispatch')
+def load_tgusers(request):
+    # получаем все значения модели
+    data = TgUser.objects.all()
+    return render(request, 'home_telebot.html', {'data': data})
