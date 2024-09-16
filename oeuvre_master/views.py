@@ -21,7 +21,7 @@ def update(request):
         '''
         repo = git.Repo("oeuvre")
         origin = repo.remotes.origin
-
+        repo.create_head('master', origin.refs.master).set_tracking_branch(origin.refs.master).checkout()
         origin.pull(force=True)
 
         return HttpResponse("Updated code on PythonAnywhere")
