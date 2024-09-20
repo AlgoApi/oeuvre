@@ -8,3 +8,9 @@ class TgUser(models.Model):
     photo = models.ImageField(upload_to='images')
     description = models.TextField()
 
+
+class AgentId(models.Model):
+    id = models.IntegerField()
+
+    def __str__(self):
+        return self.id

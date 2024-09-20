@@ -1,14 +1,13 @@
 from django.http import HttpResponse
 from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
-from .models import TgUser
+from .models import TgUser, AgentId
 from django.core.files.storage import FileSystemStorage
 import asyncio
 from django.views import View
 from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import permission_required
 
-agents = [9834, 123]
 
 async def acreate_person(tg_url, tg_name, name, photo, description):
     person = await TgUser.objects.acreate(tg_url=tg_url, tg_name=tg_name, name=name, photo=photo,
@@ -30,7 +29,11 @@ def tguser(request):
         return HttpResponse(200)
     else:
         id_agent = request.GET.get('ID')
-        return HttpResponse(200 if int(id_agent) in agents else 403)
+        id_agents = AgentId.objects.all()
+        for i in id_agents:
+            if int(id_agent) in id_agents[i].id:
+                return HttpResponse(200)
+        return HttpResponse(403)
 
 
 class View_tgusers(View):
