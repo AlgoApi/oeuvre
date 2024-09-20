@@ -30,7 +30,7 @@ def tguser(request):
     else:
         id_agent = request.GET.get('ID')
         id_agents = AgentId.objects.all()
-        for i in id_agents:
+        for i in range(id_agents):
             if int(id_agent) == int(id_agents[i].id_agent):
                 return HttpResponse(200)
         return HttpResponse(403)
