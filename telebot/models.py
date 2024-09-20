@@ -12,5 +12,5 @@ class TgUser(models.Model):
 class AgentId(models.Model):
     id = models.IntegerField(primary_key=True)
 
-    def __str__(self):
+    def __int__(self):
         return self.id
