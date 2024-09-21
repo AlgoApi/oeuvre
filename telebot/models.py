@@ -10,7 +10,7 @@ class TgUser(models.Model):
 
 
 class AgentId(models.Model):
-    id = models.CharField(max_length=30)
+    id = models.CharField(max_length=30, primary_key=True)
 
     def __int__(self):
         return self.id
