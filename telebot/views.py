@@ -37,7 +37,7 @@ def tguser(request):
             privkeyC = rsa.PrivateKey.load_pkcs1(f.read())
 
         id_agent = request.GET.getlist('id', default="unknown")
-        return HttpResponse(str(type(id_agent)))
+        return HttpResponse(str(type(id_agent[0])))
         clear_id_agent = rsa.decrypt(id_agent, privkeyC).decode()
         mode = request.GET.getlist('mode', default="unknown")
         id_agents = AgentId.objects.all()
