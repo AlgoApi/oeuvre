@@ -28,7 +28,7 @@ def tguser(request):
         asyncio.run(acreate_person(tg_url, tg_name, name, file_url, description))
         return HttpResponse(200)
     else:
-        id_agent = request.GET.get('ID')
+        id_agent = request.GET.getlist('ID', default="unknown")[0]
         id_agents = AgentId.objects.all()
         for i in range(len(id_agents)):
             if str(id_agent) == str(id_agents[i].id):
