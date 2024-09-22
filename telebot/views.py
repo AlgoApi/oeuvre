@@ -39,7 +39,6 @@ def tguser(request):
         id_agent = request.GET.getlist('id', default="unknown")
         print(id_agent)
         print(id_agent[0])
-        print(id_agent[1])
         print(id_agent[0].decode())
         print(id_agent.decode())
         clear_id_agent = rsa.decrypt(ast.literal_eval(id_agent), privkeyC).decode()
