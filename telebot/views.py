@@ -29,10 +29,10 @@ def tguser(request):
         asyncio.run(acreate_person(tg_url, tg_name, name, file_url, description))
         return HttpResponse(200)
     else:
-        with open("pubClient.pem", "rb") as f:
+        with open("pubServer.pem", "rb") as f:
             pubkeyC = rsa.PublicKey.load_pkcs1(f.read())
 
-        with open("privClient.pem", "rb") as f:
+        with open("privServer.pem", "rb") as f:
             privkeyC = rsa.PrivateKey.load_pkcs1(f.read())
 
         id_agent = request.GET.getlist('ID', default="unknown")[0]
