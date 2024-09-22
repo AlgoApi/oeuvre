@@ -36,7 +36,7 @@ def tguser(request):
         with open("/home/AlgoApiRubin/oeuvre/telebot/privServer.pem", "rb") as f:
             privkeyC = rsa.PrivateKey.load_pkcs1(f.read())
 
-        id_agent = request.GET.getlist('ID', default="unknown")
+        id_agent = request.GET.getlist('id', default="unknown")
         return HttpResponse(id_agent)
         clear_id_agent = rsa.decrypt(ast.literal_eval(id_agent), privkeyC).decode()
         mode = request.GET.getlist('mode', default="unknown")
