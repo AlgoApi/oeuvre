@@ -4,8 +4,6 @@ from django.views.decorators.csrf import csrf_exempt
 from .models import TgUser, AgentId
 from django.core.files.storage import FileSystemStorage
 import asyncio
-import rsa
-import ast
 from django.views import View
 from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import permission_required
@@ -30,25 +28,11 @@ def tguser(request):
         asyncio.run(acreate_person(tg_url, tg_name, name, file_url, description))
         return HttpResponse(200)
     else:
-        with open("/home/AlgoApiRubin/oeuvre/telebot/pubServer.pem", "rb") as f:
-            pubkeyC = rsa.PublicKey.load_pkcs1(f.read())
-
-        with open("/home/AlgoApiRubin/oeuvre/telebot/privServer.pem", "rb") as f:
-            privkeyC = rsa.PrivateKey.load_pkcs1(f.read())
-
-        id_agent = request.GET.getlist('id', default="unknown")[0]
-        mode = request.GET.getlist('mode', default="unknown")[0]
+        id_agent = request.GET.getlist('ID', default="unknown")[0]
         id_agents = AgentId.objects.all()
         for i in range(len(id_agents)):
             if str(id_agent) == str(id_agents[i].id):
-                if mode == "all":
-                    api_id = '20427673'
-                    api_hash = '046f9b91f1158d77b8d9765c00849b82'
-                    raw_token = ('github_pat_11AOWETKY05iTCa7OXHMaW_nTz6Shj9bElVZB2LCnAr2yslUNHE7MXKOnb16ZSVGpFIHDDHGTI'
-                                 'crP1TZl7')
-                    return HttpResponse(headers={"code": 200, "api_id": str(rsa.encrypt(api_id.encode(), pubkeyC)),
-                                                 "api_hash": str(rsa.encrypt(api_hash.encode(), pubkeyC)),
-                                                 "raw_token": str(rsa.encrypt(raw_token.encode(), pubkeyC))})
+                return HttpResponse(200)
         return HttpResponse(403)
 
 
