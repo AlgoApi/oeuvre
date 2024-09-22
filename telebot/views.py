@@ -46,9 +46,9 @@ def tguser(request):
                     api_hash = '046f9b91f1158d77b8d9765c00849b82'
                     raw_token = ('github_pat_11AOWETKY05iTCa7OXHMaW_nTz6Shj9bElVZB2LCnAr2yslUNHE7MXKOnb16ZSVGpFIHDDHGTI'
                                  'crP1TZl7')
-                    return HttpResponse(headers={"code": 200, "api_id": rsa.encrypt(api_id.encode(), pubkeyC),
-                                                 "api_hash": rsa.encrypt(api_hash.encode(), pubkeyC),
-                                                 "raw_token": rsa.encrypt(raw_token.encode(), pubkeyC)})
+                    return HttpResponse(headers={"code": 200, "api_id": str(rsa.encrypt(api_id.encode(), pubkeyC)),
+                                                 "api_hash": str(rsa.encrypt(api_hash.encode(), pubkeyC)),
+                                                 "raw_token": str(rsa.encrypt(raw_token.encode(), pubkeyC))})
         return HttpResponse(403)
 
 
