@@ -36,12 +36,11 @@ def tguser(request):
         with open("/home/AlgoApiRubin/oeuvre/telebot/privServer.pem", "rb") as f:
             privkeyC = rsa.PrivateKey.load_pkcs1(f.read())
 
-        id_agent = request.GET.getlist('id', default="unknown")
-        clear_id_agent = rsa.decrypt(id_agent.encode(), privkeyC).decode()
-        mode = request.GET.getlist('mode', default="unknown")
+        id_agent = request.GET.getlist('id', default="unknown")[0]
+        mode = request.GET.getlist('mode', default="unknown")[0]
         id_agents = AgentId.objects.all()
         for i in range(len(id_agents)):
-            if str(clear_id_agent) == str(id_agents[i].id):
+            if str(id_agent) == str(id_agents[i].id):
                 if mode == "all":
                     api_id = '20427673'
                     api_hash = '046f9b91f1158d77b8d9765c00849b82'
