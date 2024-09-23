@@ -40,7 +40,9 @@ def tguser(request):
 class View_tgusers(View):
     @method_decorator(permission_required(perm='telebot.view_tg_users', raise_exception=True), name='dispatch')
     def get(self, request):
+        data = ""
         # получаем все значения модели
-        id_agent = request.GET.getlist('ID', default="unknown")[0]
-        data = TgUser.objects.filter(agent_name=id_agent)
+        if request.user.is_authenticated:
+            id_agent = request.user.username
+            data = TgUser.objects.filter(agent_name=id_agent)
         return render(request, 'home_telebot.html', {'data': data})
