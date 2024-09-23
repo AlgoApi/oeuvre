@@ -9,9 +9,9 @@ from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import permission_required
 
 
-async def acreate_person(tg_url, tg_name, name, photo, description):
+async def acreate_person(tg_url, tg_name, name, photo, description, agent_name):
     person = await TgUser.objects.acreate(tg_url=tg_url, tg_name=tg_name, name=name, photo=photo,
-                                          description=description)
+                                          description=description, agent_name=agent_name)
     print(person.name)
 
 
@@ -22,10 +22,11 @@ def tguser(request):
         tg_name = request.POST.getlist('tg_name', default="unknown")[0]
         name = request.POST.getlist('name', default="unknown")[0]
         description = request.POST.getlist('description', default="unknown")[0]
+        agent_name = request.POST.getlist('agent_name', default="unknown")[0]
         fs = FileSystemStorage()
         file = request.FILES['photo']
         file_url = fs.url(fs.save(file.name, file))
-        asyncio.run(acreate_person(tg_url, tg_name, name, file_url, description))
+        asyncio.run(acreate_person(tg_url, tg_name, name, file_url, description, agent_name))
         return HttpResponse(200)
     else:
         id_agent = request.GET.getlist('ID', default="unknown")[0]

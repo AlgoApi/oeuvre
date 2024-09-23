@@ -7,6 +7,7 @@ class TgUser(models.Model):
     name = models.CharField(max_length=100)
     photo = models.ImageField(upload_to='images')
     description = models.TextField()
+    agent_name = models.CharField(max_length=100)
 
 
 class AgentId(models.Model):
