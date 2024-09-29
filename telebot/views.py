@@ -5,7 +5,6 @@ from .models import TgUser, AgentId
 from django.core.files.storage import FileSystemStorage
 import asyncio
 from django.views import View
-from django.contrib.auth.models import Permission
 from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import permission_required
 
@@ -42,8 +41,7 @@ class View_tgusers(View):
     #@method_decorator(permission_required(perm='telebot.view_tg_users', raise_exception=True), name='dispatch')
     def get(self, request):
         data = ""
-        return Permission.objects.all()
-        #HttpResponse(request.user.is_authenticated + ", " + request.user.username + ", " + )
+        return HttpResponse(request.user.is_authenticated + ", " + request.user.username)
         # получаем все значения модели
         if request.user.is_authenticated:
             id_agent = request.user.username
