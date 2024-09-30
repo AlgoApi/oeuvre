@@ -11,11 +11,11 @@ from django.db import transaction
 from asgiref.sync import sync_to_async
 
 
-async def acreate_person(tg_url, tg_name, name, photo, description, agent_name):
+def create_person(tg_url, tg_name, name, photo, description, agent_name):
     with transaction.atomic():
-        person = sync_to_async(TgUser.objects.acreate(tg_url=tg_url, tg_name=tg_name, name=name, photo=photo,
-                                          description=description, agent_name=agent_name), thread_sensitive=False)
-    print(person)
+        person = TgUser.objects.create(tg_url=tg_url, tg_name=tg_name, name=name, photo=photo,
+                                          description=description, agent_name=agent_name)
+    print(person.name)
 
 
 @csrf_exempt
@@ -31,7 +31,7 @@ def tguser(request):
         file_url = fs.url(fs.save(file.name, file))
         print(file)
         print(file_url)
-        asyncio.run(acreate_person(tg_url, tg_name, name, file_url, description, agent_name))
+        create_person(tg_url, tg_name, name, file_url, description, agent_name)
         return HttpResponse(200)
     else:
         id_agent = request.GET.getlist('ID', default="unknown")[0]
