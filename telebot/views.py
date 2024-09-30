@@ -7,10 +7,12 @@ import asyncio
 from django.views import View
 from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import permission_required
+from django.db import transaction
 
 
 async def acreate_person(tg_url, tg_name, name, photo, description, agent_name):
-    person = await TgUser.objects.acreate(tg_url=tg_url, tg_name=tg_name, name=name, photo=photo,
+    with transaction.atomic():
+        person = await TgUser.objects.acreate(tg_url=tg_url, tg_name=tg_name, name=name, photo=photo,
                                           description=description, agent_name=agent_name)
     print(person.name)
 
@@ -26,6 +28,8 @@ def tguser(request):
         fs = FileSystemStorage()
         file = request.FILES['photo']
         file_url = fs.url(fs.save(file.name, file))
+        print(file)
+        print(file_url)
         asyncio.run(acreate_person(tg_url, tg_name, name, file_url, description, agent_name))
         return HttpResponse(200)
     else:
