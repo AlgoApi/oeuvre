@@ -8,13 +8,14 @@ from django.views import View
 from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import permission_required
 from django.db import transaction
+from asgiref.sync import sync_to_async
 
 
 async def acreate_person(tg_url, tg_name, name, photo, description, agent_name):
     with transaction.atomic():
-        person = await TgUser.objects.acreate(tg_url=tg_url, tg_name=tg_name, name=name, photo=photo,
-                                          description=description, agent_name=agent_name)
-    print(person.name)
+        person = sync_to_async(TgUser.objects.acreate(tg_url=tg_url, tg_name=tg_name, name=name, photo=photo,
+                                          description=description, agent_name=agent_name), thread_sensitive=False)
+    print(person)
 
 
 @csrf_exempt
